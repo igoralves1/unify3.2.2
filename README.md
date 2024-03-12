@@ -23,9 +23,9 @@ Have a question? No worries! Unify comes with 6 months of free support. We take 
 We offer affordable, professional and trendy customized design solutions, solely for your own projects! Unify Template can be easily customized with its cutting-edge components and features. However, if you feel you need any further customization please drop us a message at https://htmlstream.com/hire-us and our dedicated team will assist you with your inquiries.
 
 # Unify in VsCODE - Dev Containers
-1 - Create a folder in the root named `.devcontainer`.
-2 - Inside this folder create a file named `devcontainer.json`.
-3 - Inside this file paste the following content:
+1 - Create a folder in the root named `.devcontainer`.  
+2 - Inside this folder create a file named `devcontainer.json`.  
+3 - Inside this file paste the following content:  
 ```
 {
     // The name of the project
@@ -42,18 +42,18 @@ We offer affordable, professional and trendy customized design solutions, solely
     "licenseURL": "https://github.com/devcontainers/templates/blob/main/LICENSE"
 }
 ```
-4 - Install Docker in your local machine
-5 - Install [Visual Studio Code Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension in your VSCODE. It will install some other dependencies as well.
-6 - Have your github repository ready, commited with the folder and file from step 1 and 2.
-7 - In your VSCODE do `shift+alt+p` to open the `commands drop down`
-8 - Choose `>Dev Containers: Clone Repository in Container Volume...` this will create a container and clone your github repository into it.
-9 - Do a shift+ctrl+` to open the terminal
-10 - In the terminal run `whoami` you should have `node` as the answer saying you are in the node container.
-11 - Run `ls`. You should see your `Unify3.2.2` files and folders cloned from your GitHub repository.
-12 - In the terminal follow the [Quick Setup Instructions](https://htmlstream.com/unify/documentation/gulp.html#quick-setup) 
-13 - In the Root run `npm install --global gulp-cli`
-14 - Navigate to the `root /unify` directory and run `npm install` or to install our local dependencies listed in package.json.
-15 - Run `gulp`.
+4 - Install Docker in your local machine  
+5 - Install [Visual Studio Code Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension in your VSCODE. It will install some other dependencies as well.  
+6 - Have your github repository ready, commited with the folder and file from step 1 and 2.  
+7 - In your VSCODE do `shift+alt+p` to open the `commands drop down`.  
+8 - Choose `>Dev Containers: Clone Repository in Container Volume...` this will create a container and clone your github repository into it.  
+9 - Do a shift+ctrl+` to open the terminal.  
+10 - In the terminal run `whoami` you should have `node` as the answer saying you are in the node container.  
+11 - Run `ls`. You should see your `Unify3.2.2` files and folders cloned from your GitHub repository.  
+12 - In the terminal follow the [Quick Setup Instructions](https://htmlstream.com/unify/documentation/gulp.html#quick-setup).  
+13 - In the Root run `npm install --global gulp-cli`.  
+14 - Navigate to the `root /unify` directory and run `npm install` or to install our local dependencies listed in package.json.  
+15 - Run `gulp`.  
 
 
 

@@ -8,8 +8,8 @@
     "description": "Develop Node.js based applications. Includes Node.js, eslint, nvm, and yarn.",
     "documentationURL": "https://github.com/devcontainers/templates/tree/main/src/javascript-node",
     "publisher": "Dev Container Spec Maintainers",
-    "licenseURL": "https://github.com/devcontainers/templates/blob/main/LICENSE",
-    "appPort": [ "3000:3000" ]
+    "licenseURL": "https://github.com/devcontainers/templates/blob/main/LICENSE"
+    //"appPort": [ "3000:3000" ]
 }
 
     
