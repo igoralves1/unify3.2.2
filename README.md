@@ -47,7 +47,7 @@ We offer affordable, professional and trendy customized design solutions, solely
 6 - Have your github repository ready, commited with the folder and file from step 1 and 2.  
 7 - In your VSCODE do `shift+alt+p` to open the `commands drop down`.  
 8 - Choose `>Dev Containers: Clone Repository in Container Volume...` this will create a container and clone your github repository into it.  
-9 - Do a shift+ctrl+` to open the terminal.  
+9 - Open the terminal.  
 10 - In the terminal run `whoami` you should have `node` as the answer saying you are in the node container.  
 11 - Run `ls`. You should see your `Unify3.2.2` files and folders cloned from your GitHub repository.  
 12 - In the terminal follow the [Quick Setup Instructions](https://htmlstream.com/unify/documentation/gulp.html#quick-setup).  
