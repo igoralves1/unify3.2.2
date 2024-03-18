@@ -1,0 +1,170 @@
+version: '3'
+
+networks:
+  laravel:
+
+services:
+  app:
+    build:
+      context: ./dockerfiles
+      dockerfile: nginx.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    container_name: nginx
+    ports:
+      - 80:80
+      # - "8008:80"
+    volumes:
+      - ./src:/var/www/html:delegated
+    depends_on:
+      - php
+      - redis
+      - postgres
+      # - mysql
+      - mailhog
+      # - pgadmin
+      - npm
+      - artisan
+      - composer
+    networks:
+      - laravel
+
+  # By default, whenever you bring down the Docker network, your MySQL data will be removed after 
+  # the containers are destroyed. If you would like to have persistent data that remains after bringing 
+  # containers down and back up, do the following: Create a mysql folder in the project root, alongside the nginx and src folders.
+  # mysql:
+  #   image: mariadb:10.6
+  #   restart: unless-stopped
+  #   tty: true
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - ./mysql:/var/lib/mysql
+  #   environment:
+  #     MYSQL_DATABASE: homestead
+  #     MYSQL_USER: homestead
+  #     MYSQL_PASSWORD: secret
+  #     MYSQL_ROOT_PASSWORD: secret
+  #     SERVICE_TAGS: dev
+  #     SERVICE_NAME: mysql
+  #   networks:
+  #     - laravel
+
+  # https://hub.docker.com/_/postgres
+  postgres:
+    image: postgres:14.2-alpine
+    container_name: postgres
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_ROOT_PASSWORD: postgres
+      SERVICE_TAGS: dev
+      SERVICE_NAME: postgres
+    # Before build your Docker containers, for a persistent PostgreSQL Storage - Create a `postgres` folder in the project root, alongside the `src` folder and uncomment the 2 lines below. 
+    # If the containers have been cretaed before uncomment the following lines, do the following: 
+    #   1-Destroy all containers following docker instructions in the README.md in main branch (https://github.com/igoralves1/docker-compose-laravel#some-useful-commands), 
+    #   2-Create the folder `postgres` in the root and 
+    #   3-Remove comments below.
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    networks:
+      - laravel
+
+  # Do not set pgadmin through here. Must to set thorugh `docker run -d --rm -p 5050:5050 thajeztah/pgadmin4`
+  pgadmin:
+    # image: dpage/pgadmin4
+    image: thajeztah/pgadmin4
+    container_name: pgadmin4
+    restart: unless-stopped
+    ports:
+      - "5050:5050"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres@postgres.com
+      PGADMIN_DEFAULT_PASSWORD: postgres
+    networks:
+      - laravel
+
+  php:
+    build:
+      context: ./dockerfiles
+      dockerfile: php.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    container_name: php
+    volumes:
+      - ./src:/var/www/html:delegated
+    networks:
+      - laravel
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+    networks:
+      - laravel
+
+  composer:
+    build:
+      context: ./dockerfiles
+      dockerfile: composer.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    container_name: composer
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    depends_on:
+      - php
+    user: laravel
+    entrypoint: ['composer', '--ignore-platform-reqs']
+    networks:
+      - laravel
+
+  npm:
+    image: node:20.11
+    container_name: npm
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - 3000:3000
+      - 3001:3001
+    working_dir: /var/www/html
+    entrypoint: ['npm']
+    networks:
+      - laravel
+
+  artisan:
+    build:
+      context: ./dockerfiles
+      dockerfile: php.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    container_name: artisan
+    volumes:
+      - ./src:/var/www/html:delegated
+    depends_on:
+      - postgres
+    working_dir: /var/www/html
+    entrypoint: ['php', '/var/www/html/artisan']
+    networks:
+      - laravel
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025
+    networks:
+      - laravel
